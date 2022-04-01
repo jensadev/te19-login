@@ -3,9 +3,20 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const pool = require('../utils/database');
 
+router.get('/routes', (req, res) => {
+    const routes = router.stack.map(route => {
+        return route.route.path;
+    });
+    res.json(routes);
+});
+
 /* GET home page. */
 router.get('/', function (req, res, next) {
+    const routes = router.stack.map(route => {
+        return route.route.path;
+    });
     res.render('index.njk', {
+        routes: routes,
         title: 'Home',
         layout: 'layout.njk',
     });

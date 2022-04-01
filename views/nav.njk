@@ -1,0 +1,15 @@
+{% if routes %}
+<style>
+    .nav {
+        display: flex;
+    }
+    .nav > li {
+        margin-right: 1em;
+    }
+</style>
+<ul class="nav">
+    {% for route in routes %}
+    <li><a href="{{ route }}">{{ route }}</a></li>
+    {% endfor %}
+</ul>
+{% endif %}
