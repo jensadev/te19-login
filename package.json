@@ -1,21 +1,24 @@
 {
-  "name": "te19-login",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "start": "node ./bin/www",
-    "dev": "nodemon -e js,html,njk ./bin/www"
-  },
-  "dependencies": {
-    "bcrypt": "^5.0.1",
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "dotenv": "^16.0.0",
-    "express": "~4.16.1",
-    "express-session": "^1.17.2",
-    "morgan": "~1.9.1",
-    "mysql2": "^2.3.3",
-    "node-sass-middleware": "0.11.0",
-    "nunjucks": "^3.2.3"
-  }
+    "name": "te19-login",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "start": "node ./bin/www",
+        "dev": "nodemon -e js,html,njk ./bin/www"
+    },
+    "engines": {
+        "node": "~14"
+    },
+    "dependencies": {
+        "bcrypt": "^5.0.1",
+        "cookie-parser": "~1.4.4",
+        "debug": "~2.6.9",
+        "dotenv": "^16.0.0",
+        "express": "~4.16.1",
+        "express-session": "^1.17.2",
+        "morgan": "~1.9.1",
+        "mysql2": "^2.3.3",
+        "node-sass-middleware": "0.11.0",
+        "nunjucks": "^3.2.3"
+    }
 }
