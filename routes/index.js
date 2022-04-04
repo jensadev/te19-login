@@ -3,20 +3,18 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const pool = require('../utils/database');
 
-router.get('/routes', (req, res) => {
-    const routes = router.stack.map(route => {
-        return route.route.path;
+const routeNav = () => {
+    return router.stack.map(route => {
+        if (route.route.methods.get) {
+            return route.route.path;
+        }
     });
-    res.json(routes);
-});
+}
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    const routes = router.stack.map(route => {
-        return route.route.path;
-    });
     res.render('index.njk', {
-        routes: routes,
+        routes: routeNav(),
         title: 'Home',
         layout: 'layout.njk',
     });
@@ -83,7 +81,26 @@ router.get('/register', function (req, res, next) {
 });
 
 router.post('/register', function (req, res, next) {
-    res.json({ fix: 'fix' });
+    const user = req.body.username;
+    const pwd = req.body.password;
+    const pwd2 = req.body.password2;
+
+    if (pwd !== pwd2) {
+        return res.redirect('/register');
+    }
+
+    bcrypt.hash(pwd, 10).then(async(hash) =>{
+        await pool
+        .promise()
+        .query('INSERT INTO users (name, password) VALUES (?, ?)', [user, hash])
+        .then((response) => {
+            res.json(response);
+            // res.redirect('/login');
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    });
 });
 
 router.get('/profile', (req, res, next) =>{
