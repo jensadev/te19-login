@@ -15,25 +15,33 @@ const app = express();
 
 nunjucks.configure('views', {
     autoescape: true,
-    express: app
-  });
+    express: app,
+});
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    cookie: { sameSite: true }
-}));
-app.use(sassMiddleware({
-  src: path.join(__dirname, 'public'),
-  dest: path.join(__dirname, 'public'),
-  indentedSyntax: true, // true = .sass and false = .scss
-  sourceMap: true
-}));
+app.use(
+    session({
+        cookie: {
+            secure: true,
+            maxAge: 60000,
+            sameSite: true,
+        },
+        secret: process.env.SESSION_SECRET,
+        resave: false,
+        saveUninitialized: true,
+    })
+);
+app.use(
+    sassMiddleware({
+        src: path.join(__dirname, 'public'),
+        dest: path.join(__dirname, 'public'),
+        indentedSyntax: true, // true = .sass and false = .scss
+        sourceMap: true,
+    })
+);
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
