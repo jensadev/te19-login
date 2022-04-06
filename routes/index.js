@@ -44,7 +44,7 @@ router.post('/login', async (req, res, next) => {
 
     await pool
     .promise()
-    .query('SELECT id, name, password FROM users WHERE name = ? LIMIT 1', [username])
+    .query(`SELECT id, name, password FROM ${process.env.TABLE_PREFIX}users WHERE name = ? LIMIT 1`, [username])
     .then(([rows]) => {
         if(rows.length === 0) {
             console.log("hantera no user found");
@@ -92,7 +92,7 @@ router.post('/register', function (req, res, next) {
     bcrypt.hash(pwd, 10).then(async(hash) =>{
         await pool
         .promise()
-        .query('INSERT INTO users (name, password) VALUES (?, ?)', [user, hash])
+        .query(`INSERT INTO ${process.env.TABLE_PREFIX} (name, password) VALUES (?, ?)`, [user, hash])
         .then((response) => {
             res.json(response);
             // res.redirect('/login');
