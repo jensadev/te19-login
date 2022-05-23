@@ -95,7 +95,7 @@ router.post('/register', function (req, res, next) {
     bcrypt.hash(pwd, 10).then(async(hash) =>{
         await pool
         .promise()
-        .query(`INSERT INTO ${process.env.TABLE_PREFIX} (name, password) VALUES (?, ?)`, [user, hash])
+        .query(`INSERT INTO ${process.env.TABLE_PREFIX}users (name, password) VALUES (?, ?)`, [user, hash])
         .then((response) => {
             // res.json(response);
             res.redirect('/login');
