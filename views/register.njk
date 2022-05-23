@@ -1,0 +1,12 @@
+{% extends layout %}
+{% block  content %}
+<main class="container mt-3">
+    <h1>Login</h1>
+    <form method="post" action="/register">
+        <input type="text" name="username">
+        <input type="password" name="password">
+        <input type="password" name="password2">
+        <button type="submit">Register</button>
+    </form>
+</main>
+{% endblock %}

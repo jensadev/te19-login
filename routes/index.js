@@ -77,7 +77,10 @@ router.get('/logout', function (req, res, next) {
 });
 
 router.get('/register', function (req, res, next) {
-    res.json({ fix: 'fix' });
+    res.render('register.njk', {
+        title: 'Register',
+        layout: 'layout.njk',
+    });
 });
 
 router.post('/register', function (req, res, next) {
@@ -94,8 +97,8 @@ router.post('/register', function (req, res, next) {
         .promise()
         .query(`INSERT INTO ${process.env.TABLE_PREFIX} (name, password) VALUES (?, ?)`, [user, hash])
         .then((response) => {
-            res.json(response);
-            // res.redirect('/login');
+            // res.json(response);
+            res.redirect('/login');
         })
         .catch(error => {
             console.log(error);
